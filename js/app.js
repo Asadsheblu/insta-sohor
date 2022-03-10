@@ -8,12 +8,17 @@ const getLikedPosts = () => {
 };
 
 const getReportedPosts = () => {
+  
     return posts.filter((post) => reportedPostsId.includes(post.id));
 };
 
 const isLiked = (id) => {
     return likedPostsId?.length && !!likedPostsId.includes(id);
 };
+const isRepoted = (id) => {
+    return reportedPostsId?.length && !!reportedPostsId.includes(id);
+};
+
 
 const addToLiked = (id) => {
   // console.log(id);
@@ -99,7 +104,8 @@ const createPost = (post) => {
                   <button class="post__button post__button--align-right" onclick="reportPost(${
                       post.id
                   })">
-                    <i class="fa-solid fa-ban"></i>
+                    
+                    <i class="fa-solid fa-ban ${isRepoted(post.id)}"></i>
                   </button>
                 </div>
 
@@ -145,17 +151,23 @@ const showPosts = (posts) => {
 
 const displayLikedPosts = () => {
     const likedPosts = getLikedPosts();
+    console.log(likedPosts);
+    const like=document.getElementById( "liked" )
+    like.innerHTML=''
     likedPosts.forEach((post) => {
         const div = createPost(post);
-        document.getElementById( "liked" ).appendChild(div);
+       like .appendChild(div);
     });
 };
 
 const displayReportedPosts = () => {
     const reportedPosts = getReportedPosts();
+    const report=document.getElementById( "reported" )
+    report.innerHTML=''
     reportedPosts.forEach((post) => {
         const div = createPost(post);
-        document.getElementById( "reported" ).appendChild(div);
+        
+       report .appendChild(div);
     });
 };
 
